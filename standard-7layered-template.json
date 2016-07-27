@@ -1,0 +1,2506 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09", 
+    "Description": "Auto Generated CFT", 
+    "Resources": {
+        "VPC": {
+            "Type": "AWS::EC2::VPC", 
+            "Properties": {
+                "CidrBlock": "10.72.0.0/16", 
+                "EnableDnsSupport": "TRUE", 
+                "EnableDnsHostnames": "TRUE", 
+                "InstanceTenancy": "default", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-vpc"
+                    }
+                ]
+            }
+        }, 
+        "VPC1": {
+            "Type": "AWS::EC2::VPC", 
+            "Properties": {
+                "CidrBlock": "10.73.0.0/16", 
+                "EnableDnsSupport": "TRUE", 
+                "EnableDnsHostnames": "TRUE", 
+                "InstanceTenancy": "default", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-vpc1"
+                    }
+                ]
+            }
+        }, 
+        "IntenetGateWay": {
+            "Type": "AWS::EC2::InternetGateway", 
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-igw"
+                    }
+                ]
+            }
+        }, 
+        "IntenetGateWay1": {
+            "Type": "AWS::EC2::InternetGateway", 
+            "Properties": {
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-igw1"
+                    }
+                ]
+            }
+        }, 
+        "IGWAttach": {
+            "Type": "AWS::EC2::VPCGatewayAttachment", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "InternetGatewayId": {
+                    "Ref": "IntenetGateWay1"
+                }
+            }
+        }, 
+        "DMZAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.104.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-dmz-2a-pub"
+                    }
+                ]
+            }
+        }, 
+        "DMZAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.120.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-dmz-2b-pub"
+                    }
+                ]
+            }
+        }, 
+        "ExternalELBAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.102.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-xelb-2a-pub"
+                    }
+                ]
+            }
+        }, 
+        "ExternalELBAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.118.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-xelb-2b-pub"
+                    }
+                ]
+            }
+        }, 
+        "WebAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.100.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-web-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "WebAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.116.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-web-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "InternalELBAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.108.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-ielb-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "InternalELBAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.124.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-ielb-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AppAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.106.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-app-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AppAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.122.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-app-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "DBAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.107.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-db-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "DBAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.123.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-db-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AdminAZ1": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.0.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-admin-1c-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AdminAZ2": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.72.16.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-admin-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "DMZAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.104.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-dmz-2a-pub"
+                    }
+                ]
+            }
+        }, 
+        "DMZAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.120.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-dmz-2b-pub"
+                    }
+                ]
+            }
+        }, 
+        "ExternalELBAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.102.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-xelb-2a-pub"
+                    }
+                ]
+            }
+        }, 
+        "ExternalELBAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.118.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "true", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-xelb-2b-pub"
+                    }
+                ]
+            }
+        }, 
+        "WebAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.100.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-web-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "WebAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.116.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-web-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "InternalELBAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.108.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-ielb-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "InternalELBAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.124.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-ielb-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AppAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.106.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-app-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AppAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.122.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-app-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "DBAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.107.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-db-2a-pvt"
+                    }
+                ]
+            }
+        }, 
+        "DBAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.123.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-db-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AdminAZ11": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.0.0/24", 
+                "AvailabilityZone": "us-west-2a", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-admin-1c-pvt"
+                    }
+                ]
+            }
+        }, 
+        "AdminAZ21": {
+            "Type": "AWS::EC2::Subnet", 
+            "Properties": {
+                "CidrBlock": "10.73.16.0/24", 
+                "AvailabilityZone": "us-west-2b", 
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "MapPublicIpOnLaunch": "false", 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-admin-2b-pvt"
+                    }
+                ]
+            }
+        }, 
+        "PublicIGWRT": {
+            "Type": "AWS::EC2::RouteTable", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-pub-rt"
+                    }
+                ]
+            }
+        }, 
+        "PrivateToNatGateway1": {
+            "Type": "AWS::EC2::RouteTable", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-priv-rt"
+                    }
+                ]
+            }
+        }, 
+        "PrivateToNatGateway2": {
+            "Type": "AWS::EC2::RouteTable", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-priv-rt"
+                    }
+                ]
+            }
+        }, 
+        "PublicIGWRT1": {
+            "Type": "AWS::EC2::RouteTable", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-pub-rt"
+                    }
+                ]
+            }
+        }, 
+        "PrivateToNatGateway11": {
+            "Type": "AWS::EC2::RouteTable", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-priv-rt"
+                    }
+                ]
+            }
+        }, 
+        "PrivateToNatGateway21": {
+            "Type": "AWS::EC2::RouteTable", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-priv-rt"
+                    }
+                ]
+            }
+        }, 
+        "route1": {
+            "Type": "AWS::EC2::Route", 
+            "DependsOn": "IntenetGateWay", 
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT"
+                }, 
+                "DestinationCidrBlock": "0.0.0.0/0", 
+                "GatewayId": {
+                    "Ref": "IntenetGateWay"
+                }
+            }
+        }, 
+        "route11": {
+            "Type": "AWS::EC2::Route", 
+            "DependsOn": "IntenetGateWay1", 
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT1"
+                }, 
+                "DestinationCidrBlock": "0.0.0.0/0", 
+                "GatewayId": {
+                    "Ref": "IntenetGateWay1"
+                }
+            }
+        }, 
+        "DMZAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT"
+                }
+            }
+        }, 
+        "DMZAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT"
+                }
+            }
+        }, 
+        "ExternalELBAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT"
+                }
+            }
+        }, 
+        "ExternalELBAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT"
+                }
+            }
+        }, 
+        "WebAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway1"
+                }
+            }
+        }, 
+        "WebAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway2"
+                }
+            }
+        }, 
+        "InternalELBAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway1"
+                }
+            }
+        }, 
+        "InternalELBAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway2"
+                }
+            }
+        }, 
+        "AppAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway1"
+                }
+            }
+        }, 
+        "AppAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway2"
+                }
+            }
+        }, 
+        "DBAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway1"
+                }
+            }
+        }, 
+        "DBAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway2"
+                }
+            }
+        }, 
+        "AdminAssociationAZ1": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ1"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway1"
+                }
+            }
+        }, 
+        "AdminAssociationAZ2": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ2"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway2"
+                }
+            }
+        }, 
+        "DMZAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT1"
+                }
+            }
+        }, 
+        "DMZAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT1"
+                }
+            }
+        }, 
+        "ExternalELBAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT1"
+                }
+            }
+        }, 
+        "ExternalELBAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PublicIGWRT1"
+                }
+            }
+        }, 
+        "WebAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway11"
+                }
+            }
+        }, 
+        "WebAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway21"
+                }
+            }
+        }, 
+        "InternalELBAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway11"
+                }
+            }
+        }, 
+        "InternalELBAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway21"
+                }
+            }
+        }, 
+        "AppAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway11"
+                }
+            }
+        }, 
+        "AppAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway21"
+                }
+            }
+        }, 
+        "DBAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway11"
+                }
+            }
+        }, 
+        "DBAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway21"
+                }
+            }
+        }, 
+        "AdminAssociationAZ11": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ11"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway11"
+                }
+            }
+        }, 
+        "AdminAssociationAZ21": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ21"
+                }, 
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway21"
+                }
+            }
+        }, 
+        "NetworkAcl": {
+            "Type": "AWS::EC2::NetworkAcl", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-nacl"
+                    }
+                ]
+            }
+        }, 
+        "NetworkAcl1": {
+            "Type": "AWS::EC2::NetworkAcl", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "standard-nacl1"
+                    }
+                ]
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry1": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "100", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "20", 
+                    "To": "21"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry2": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "110", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "23", 
+                    "To": "23"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry3": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "120", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "110", 
+                    "To": "110"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry4": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "130", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "143", 
+                    "To": "143"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry5": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "140", 
+                "RuleAction": "deny", 
+                "Protocol": "17", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "161", 
+                    "To": "162"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry6": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "32766", 
+                "RuleAction": "allow", 
+                "Protocol": "-1", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "0", 
+                    "To": "0"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry11": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "100", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "20", 
+                    "To": "21"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry21": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "110", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "23", 
+                    "To": "23"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry31": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "120", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "110", 
+                    "To": "110"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry41": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "130", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "143", 
+                    "To": "143"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry51": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "140", 
+                "RuleAction": "deny", 
+                "Protocol": "17", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "161", 
+                    "To": "162"
+                }
+            }
+        }, 
+        "OutBoundTCPNetworkAclEntry61": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "32766", 
+                "RuleAction": "allow", 
+                "Protocol": "-1", 
+                "Egress": "true", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "0", 
+                    "To": "0"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry1": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "100", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "20", 
+                    "To": "21"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry2": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "110", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "23", 
+                    "To": "23"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry3": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "120", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "110", 
+                    "To": "110"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry4": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "130", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "143", 
+                    "To": "143"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry5": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "140", 
+                "RuleAction": "deny", 
+                "Protocol": "17", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "161", 
+                    "To": "162"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry6": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }, 
+                "RuleNumber": "32766", 
+                "RuleAction": "allow", 
+                "Protocol": "-1", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "0", 
+                    "To": "0"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry11": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "100", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "20", 
+                    "To": "21"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry21": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "110", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "23", 
+                    "To": "23"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry31": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "120", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "110", 
+                    "To": "110"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry41": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "130", 
+                "RuleAction": "deny", 
+                "Protocol": "6", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "143", 
+                    "To": "143"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry51": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "140", 
+                "RuleAction": "deny", 
+                "Protocol": "17", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "161", 
+                    "To": "162"
+                }
+            }
+        }, 
+        "InboundTCPNetworkAclEntry61": {
+            "Type": "AWS::EC2::NetworkAclEntry", 
+            "Properties": {
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }, 
+                "RuleNumber": "32766", 
+                "RuleAction": "allow", 
+                "Protocol": "-1", 
+                "Egress": "false", 
+                "CidrBlock": "0.0.0.0/0", 
+                "Icmp": {
+                    "Code": "", 
+                    "Type": ""
+                }, 
+                "PortRange": {
+                    "From": "0", 
+                    "To": "0"
+                }
+            }
+        }, 
+        "BaseLineSg": {
+            "Type": "AWS::EC2::SecurityGroup", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "GroupDescription": "DMZ securitygroup"
+            }
+        }, 
+        "BaseLineSg1": {
+            "Type": "AWS::EC2::SecurityGroup", 
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC1"
+                }, 
+                "GroupDescription": "DMZ1 securitygroup"
+            }
+        }, 
+        "BaseLineSgInbound1": {
+            "Type": "AWS::EC2::SecurityGroupIngress", 
+            "Properties": {
+                "IpProtocol": "tcp", 
+                "FromPort": "0", 
+                "ToPort": "0", 
+                "GroupId": {
+                    "Fn::GetAtt": [
+                        "BaseLineSg", 
+                        "GroupId"
+                    ]
+                }, 
+                "SourceSecurityGroupId": {
+                    "Fn::GetAtt": [
+                        "BaseLineSg1", 
+                        "GroupId"
+                    ]
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation1": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation2": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ2"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation4": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation5": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ2"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation7": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation8": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ2"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation10": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation11": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation13": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation14": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ2"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation16": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation17": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ2"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation19": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ1"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation20": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ2"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation21": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DMZAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation41": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation51": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "ExternalELBAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation71": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation81": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "InternalELBAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation101": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation111": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "WebAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation131": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation141": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AppAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation161": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation171": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "DBAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation191": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ11"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "SubnetNetworkAclAssociation201": {
+            "Type": "AWS::EC2::SubnetNetworkAclAssociation", 
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "AdminAZ21"
+                }, 
+                "NetworkAclId": {
+                    "Ref": "NetworkAcl1"
+                }
+            }
+        }, 
+        "LogGroup": {
+            "Type": "AWS::Logs::LogGroup", 
+            "Properties": {}
+        }, 
+        "DHCPOptions": {
+            "Type": "AWS::EC2::DHCPOptions", 
+            "Properties": {
+                "DomainName": "itsreaning.com", 
+                "DomainNameServers": [
+                    "AmazonProvidedDNS"
+                ], 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "internal_dhcp_option"
+                    }
+                ]
+            }
+        }, 
+        "VPCDHCPOptionsAssociation": {
+            "Type": "AWS::EC2::VPCDHCPOptionsAssociation", 
+            "Properties": {
+                "DhcpOptionsId": {
+                    "Ref": "DHCPOptions"
+                }, 
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            }
+        }, 
+        "VPCS3Endpoint": {
+            "Type": "AWS::EC2::VPCEndpoint", 
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17", 
+                    "Statement": [
+                        {
+                            "Effect": "Allow", 
+                            "Principal": "*", 
+                            "Action": [
+                                "s3:*"
+                            ], 
+                            "Resource": "*"
+                        }
+                    ]
+                }, 
+                "RouteTableIds": [
+                    {
+                        "Ref": "PrivateToNatGateway1"
+                    }, 
+                    {
+                        "Ref": "PrivateToNatGateway2"
+                    }, 
+                    {
+                        "Ref": "PrivateToNatGateway3"
+                    }, 
+                    {
+                        "Ref": "PrivateToNatGateway4"
+                    }, 
+                    {
+                        "Ref": "PublicIGWRT"
+                    }
+                ], 
+                "ServiceName": {
+                    "Fn::Join": [
+                        "", 
+                        [
+                            "com.amazonaws.", 
+                            {
+                                "Ref": "AWS::Region"
+                            }, 
+                            ".s3"
+                        ]
+                    ]
+                }, 
+                "VpcId": {
+                    "Ref": "VPC"
+                }
+            }
+        }, 
+        "Route53Internal": {
+            "Type": "AWS::Route53::HostedZone", 
+            "Properties": {
+                "Name": "itsreaning.com", 
+                "VPCs": [
+                    {
+                        "VPCId": {
+                            "Ref": "VPC"
+                        }, 
+                        "VPCRegion": {
+                            "Ref": "AWS::Region"
+                        }
+                    }
+                ]
+            }
+        }, 
+        "DBSubGroup": {
+            "Type": "AWS::RDS::DBSubnetGroup", 
+            "Properties": {
+                "DBSubnetGroupDescription": "7layer DB subnets", 
+                "SubnetIds": [
+                    {
+                        "Ref": "DBAZ1"
+                    }, 
+                    {
+                        "Ref": "DBAZ2"
+                    }, 
+                    {
+                        "Ref": "DBAZ3"
+                    }, 
+                    {
+                        "Ref": "DBAZ4"
+                    }
+                ], 
+                "Tags": [
+                    {
+                        "Key": "Name", 
+                        "Value": "db_subnet_group"
+                    }
+                ]
+            }
+        }, 
+        "NatGatewayEIP1": {
+            "Type": "AWS::EC2::EIP", 
+            "Properties": {
+                "Domain": "VPC"
+            }
+        }, 
+        "NatGateway1": {
+            "DependsOn": "IGWAttach", 
+            "Type": "AWS::EC2::NatGateway", 
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "NatGatewayEIP1", 
+                        "AllocationId"
+                    ]
+                }, 
+                "SubnetId": {
+                    "Ref": "DMZAZ1"
+                }
+            }
+        }, 
+        "NatGatewayRouteEntry1": {
+            "Type": "AWS::EC2::Route", 
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway1"
+                }, 
+                "DestinationCidrBlock": "0.0.0.0/0", 
+                "NatGatewayId": {
+                    "Ref": "NatGateway1"
+                }
+            }
+        }, 
+        "NatGatewayEIP2": {
+            "Type": "AWS::EC2::EIP", 
+            "Properties": {
+                "Domain": "VPC"
+            }
+        }, 
+        "NatGateway2": {
+            "DependsOn": "IGWAttach", 
+            "Type": "AWS::EC2::NatGateway", 
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "NatGatewayEIP2", 
+                        "AllocationId"
+                    ]
+                }, 
+                "SubnetId": {
+                    "Ref": "DMZAZ2"
+                }
+            }
+        }, 
+        "NatGatewayRouteEntry2": {
+            "Type": "AWS::EC2::Route", 
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway2"
+                }, 
+                "DestinationCidrBlock": "0.0.0.0/0", 
+                "NatGatewayId": {
+                    "Ref": "NatGateway2"
+                }
+            }
+        }, 
+        "NatGatewayEIP3": {
+            "Type": "AWS::EC2::EIP", 
+            "Properties": {
+                "Domain": "VPC"
+            }
+        }, 
+        "NatGateway3": {
+            "DependsOn": "IGWAttach", 
+            "Type": "AWS::EC2::NatGateway", 
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "NatGatewayEIP3", 
+                        "AllocationId"
+                    ]
+                }, 
+                "SubnetId": {
+                    "Ref": "DMZAZ3"
+                }
+            }
+        }, 
+        "NatGatewayRouteEntry3": {
+            "Type": "AWS::EC2::Route", 
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway3"
+                }, 
+                "DestinationCidrBlock": "0.0.0.0/0", 
+                "NatGatewayId": {
+                    "Ref": "NatGateway3"
+                }
+            }
+        }, 
+        "NatGatewayEIP4": {
+            "Type": "AWS::EC2::EIP", 
+            "Properties": {
+                "Domain": "VPC"
+            }
+        }, 
+        "NatGateway4": {
+            "DependsOn": "IGWAttach", 
+            "Type": "AWS::EC2::NatGateway", 
+            "Properties": {
+                "AllocationId": {
+                    "Fn::GetAtt": [
+                        "NatGatewayEIP4", 
+                        "AllocationId"
+                    ]
+                }, 
+                "SubnetId": {
+                    "Ref": "DMZAZ4"
+                }
+            }
+        }, 
+        "NatGatewayRouteEntry4": {
+            "Type": "AWS::EC2::Route", 
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PrivateToNatGateway4"
+                }, 
+                "DestinationCidrBlock": "0.0.0.0/0", 
+                "NatGatewayId": {
+                    "Ref": "NatGateway4"
+                }
+            }
+        }, 
+        "VPCflowlogRole": {
+            "Type": "AWS::IAM::Role", 
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17", 
+                    "Statement": [
+                        {
+                            "Effect": "Allow", 
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com"
+                                ]
+                            }, 
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                }, 
+                "Path": "/", 
+                "Policies": [
+                    {
+                        "PolicyName": "root", 
+                        "PolicyDocument": {
+                            "Version": "2012-10-17", 
+                            "Statement": [
+                                {
+                                    "Effect": "Allow", 
+                                    "Action": [
+                                        "logs:CreateLogGroup", 
+                                        "logs:CreateLogStream", 
+                                        "logs:PutLogEvents"
+                                    ], 
+                                    "Resource": "arn:aws:logs:*:*:*"
+                                }, 
+                                {
+                                    "Effect": "Allow", 
+                                    "Action": [
+                                        "ec2:CreateFlowLogs", 
+                                        "ec2:DeleteFlowLogs", 
+                                        "ec2:DescribeFlowLogs"
+                                    ], 
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }, 
+        "FlowlogsLogGroup": {
+            "Type": "AWS::Logs::LogGroup", 
+            "Properties": {
+                "RetentionInDays": 7
+            }
+        }, 
+        "FlowLogs": {
+            "Type": "Custom::FlowLogs", 
+            "Properties": {
+                "ServiceToken": {
+                    "Fn::GetAtt": [
+                        "CustomResourceFunction", 
+                        "Arn"
+                    ]
+                }, 
+                "VpcId": {
+                    "Ref": "VPC"
+                }, 
+                "LogGroupName": {
+                    "Ref": "FlowlogsLogGroup"
+                }, 
+                "Role": {
+                    "Fn::GetAtt": [
+                        "VPCflowlogRole", 
+                        "Arn"
+                    ]
+                }
+            }
+        }, 
+        "CustomResourceFunction": {
+            "Type": "AWS::Lambda::Function", 
+            "DependsOn": "VPCflowlogRole", 
+            "Properties": {
+                "Description": "Lambda function for using nat gateways with CloudFormation", 
+                "Code": {
+                    "S3Bucket": "cicadatest", 
+                    "S3Key": "flowlogs.zip"
+                }, 
+                "Handler": "flowlogs.handler", 
+                "Runtime": "nodejs", 
+                "Timeout": "240", 
+                "Role": {
+                    "Fn::GetAtt": [
+                        "VPCflowlogRole", 
+                        "Arn"
+                    ]
+                }
+            }
+        }
+    }, 
+    "Outputs": {
+        "VPC": {
+            "Value": {
+                "Ref": "VPC"
+            }, 
+            "Description": "VPC ID of newly created VPC"
+        }, 
+        "VPCCIDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "VPC", 
+                    "CidrBlock"
+                ]
+            }, 
+            "Description": "VPC CIDR of newly created VPC"
+        }, 
+        "AvailabilityZone1": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "DMZAZ1", 
+                    "AvailabilityZone"
+                ]
+            }, 
+            "Description": "This is AvailabilityZone-1"
+        }, 
+        "AvailabilityZone2": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "DMZAZ2", 
+                    "AvailabilityZone"
+                ]
+            }, 
+            "Description": "This is AvailabilityZone-2"
+        }, 
+        "AvailabilityZone3": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "DMZAZ3", 
+                    "AvailabilityZone"
+                ]
+            }, 
+            "Description": "This is AvailabilityZone-3"
+        }, 
+        "AvailabilityZone4": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "DMZAZ4", 
+                    "AvailabilityZone"
+                ]
+            }, 
+            "Description": "This is AvailabilityZone-4"
+        }, 
+        "DMZAZ1": {
+            "Value": {
+                "Ref": "DMZAZ1"
+            }, 
+            "Description": "This is Public subnet DMZAZ1"
+        }, 
+        "DMZAZ2": {
+            "Value": {
+                "Ref": "DMZAZ2"
+            }, 
+            "Description": "This is Public subnet DMZAZ2"
+        }, 
+        "DMZAZ3": {
+            "Value": {
+                "Ref": "DMZAZ3"
+            }, 
+            "Description": "This is Public subnet DMZAZ3"
+        }, 
+        "DMZAZ4": {
+            "Value": {
+                "Ref": "DMZAZ4"
+            }, 
+            "Description": "This is Public subnet DMZAZ4"
+        }, 
+        "ExternalELBAZ1": {
+            "Value": {
+                "Ref": "ExternalELBAZ1"
+            }, 
+            "Description": "This is Public subnet ExternalELBAZ1"
+        }, 
+        "ExternalELBAZ2": {
+            "Value": {
+                "Ref": "ExternalELBAZ2"
+            }, 
+            "Description": "This is Public subnet ExternalELBAZ2"
+        }, 
+        "ExternalELBAZ3": {
+            "Value": {
+                "Ref": "ExternalELBAZ3"
+            }, 
+            "Description": "This is Public subnet ExternalELBAZ3"
+        }, 
+        "ExternalELBAZ4": {
+            "Value": {
+                "Ref": "ExternalELBAZ4"
+            }, 
+            "Description": "This is Public subnet ExternalELBAZ4"
+        }, 
+        "WebAZ1": {
+            "Value": {
+                "Ref": "WebAZ1"
+            }, 
+            "Description": "This is Private subnet WebAZ1"
+        }, 
+        "WebAZ2": {
+            "Value": {
+                "Ref": "WebAZ2"
+            }, 
+            "Description": "This is Private subnet WebAZ2"
+        }, 
+        "WebAZ3": {
+            "Value": {
+                "Ref": "WebAZ3"
+            }, 
+            "Description": "This is Private subnet WebAZ3"
+        }, 
+        "WebAZ4": {
+            "Value": {
+                "Ref": "WebAZ4"
+            }, 
+            "Description": "This is Private subnet WebAZ4"
+        }, 
+        "InternalELBAZ1": {
+            "Value": {
+                "Ref": "InternalELBAZ1"
+            }, 
+            "Description": "This is Private subnet InternalELBAZ1"
+        }, 
+        "InternalELBAZ2": {
+            "Value": {
+                "Ref": "InternalELBAZ2"
+            }, 
+            "Description": "This is Private subnet InternalELBAZ2"
+        }, 
+        "InternalELBAZ3": {
+            "Value": {
+                "Ref": "InternalELBAZ3"
+            }, 
+            "Description": "This is Private subnet InternalELBAZ3"
+        }, 
+        "InternalELBAZ4": {
+            "Value": {
+                "Ref": "InternalELBAZ4"
+            }, 
+            "Description": "This is Private subnet InternalELBAZ4"
+        }, 
+        "AppAZ1": {
+            "Value": {
+                "Ref": "AppAZ1"
+            }, 
+            "Description": "This is Private subnet AppAZ1"
+        }, 
+        "AppAZ2": {
+            "Value": {
+                "Ref": "AppAZ2"
+            }, 
+            "Description": "This is Private subnet AppAZ2"
+        }, 
+        "AppAZ3": {
+            "Value": {
+                "Ref": "AppAZ3"
+            }, 
+            "Description": "This is Private subnet AppAZ3"
+        }, 
+        "AppAZ4": {
+            "Value": {
+                "Ref": "AppAZ4"
+            }, 
+            "Description": "This is Private subnet AppAZ4"
+        }, 
+        "DBAZ1": {
+            "Value": {
+                "Ref": "DBAZ1"
+            }, 
+            "Description": "This is Private subnet DBAZ1"
+        }, 
+        "DBAZ2": {
+            "Value": {
+                "Ref": "DBAZ2"
+            }, 
+            "Description": "This is Private subnet DBAZ2"
+        }, 
+        "DBAZ3": {
+            "Value": {
+                "Ref": "DBAZ3"
+            }, 
+            "Description": "This is Private subnet DBAZ3"
+        }, 
+        "DBAZ4": {
+            "Value": {
+                "Ref": "DBAZ4"
+            }, 
+            "Description": "This is Private subnet DBAZ4"
+        }, 
+        "AdminAZ1": {
+            "Value": {
+                "Ref": "AdminAZ1"
+            }, 
+            "Description": "This is Private subnet AdminAZ1"
+        }, 
+        "AdminAZ2": {
+            "Value": {
+                "Ref": "AdminAZ2"
+            }, 
+            "Description": "This is Private subnet AdminAZ2"
+        }, 
+        "AdminAZ3": {
+            "Value": {
+                "Ref": "AdminAZ3"
+            }, 
+            "Description": "This is Private subnet AdminAZ3"
+        }, 
+        "AdminAZ4": {
+            "Value": {
+                "Ref": "AdminAZ4"
+            }, 
+            "Description": "This is Private subnet AdminAZ4"
+        }, 
+        "BaselineSecurityGroup": {
+            "Value": {
+                "Ref": "BaseLineSg"
+            }, 
+            "Description": "This is Base SecurityGroup"
+        }, 
+        "InternetGatewayAttachment": {
+            "Value": {
+                "Ref": "IntenetGateWay"
+            }, 
+            "Description": "This is the IGW"
+        }, 
+        "PrivateToNatGateway1": {
+            "Value": {
+                "Ref": "PrivateToNatGateway1"
+            }, 
+            "Description": "PrivateToNatGateway AZ1 Route"
+        }, 
+        "PrivateToNatGateway2": {
+            "Value": {
+                "Ref": "PrivateToNatGateway2"
+            }, 
+            "Description": "PrivateToNatGateway AZ2 Route"
+        }, 
+        "PrivateToNatGateway3": {
+            "Value": {
+                "Ref": "PrivateToNatGateway3"
+            }, 
+            "Description": "PrivateToNatGateway AZ3 Route"
+        }, 
+        "PrivateToNatGateway4": {
+            "Value": {
+                "Ref": "PrivateToNatGateway4"
+            }, 
+            "Description": "PrivateToNatGateway AZ4 Route"
+        }, 
+        "PublicIGWRT": {
+            "Value": {
+                "Ref": "PublicIGWRT"
+            }, 
+            "Description": "Public Internet Gateway Route"
+        }, 
+        "NetworkAclID": {
+            "Value": {
+                "Ref": "NetworkAcl"
+            }, 
+            "Description": "Public Internet Gateway Route"
+        }, 
+        "DBSubnetGroupID": {
+            "Value": {
+                "Ref": "DBSubGroup"
+            }, 
+            "Description": "This DB subnet group ID"
+        }, 
+        "Route53InternalZoneId": {
+            "Value": {
+                "Ref": "Route53Internal"
+            }, 
+            "Description": "This Route53 Internal Zone ID"
+        }, 
+        "NatGatewayAz1ID": {
+            "Value": {
+                "Ref": "NatGateway1"
+            }, 
+            "Description": "NatGateway Creation ID for AZ-1"
+        }, 
+        "NatGatewayAz2ID": {
+            "Value": {
+                "Ref": "NatGateway2"
+            }, 
+            "Description": "NatGateway Creation ID for AZ-2"
+        }, 
+        "NatGatewayAz3ID": {
+            "Value": {
+                "Ref": "NatGateway3"
+            }, 
+            "Description": "NatGateway Creation ID for AZ-3"
+        }, 
+        "NatGatewayAz4ID": {
+            "Value": {
+                "Ref": "NatGateway4"
+            }, 
+            "Description": "NatGateway Creation ID for AZ-4"
+        }, 
+        "VPCFlowLogsID": {
+            "Value": {
+                "Ref": "FlowLogs"
+            }, 
+            "Description": "VPC FlowLogs ID"
+        }, 
+        "DHCPOptionsID": {
+            "Value": {
+                "Ref": "DHCPOptions"
+            }, 
+            "Description": "DHCP Options ID"
+        }, 
+        "AWSRegion": {
+            "Value": {
+                "Ref": "AWS::Region"
+            }, 
+            "Description": "AWS Region"
+        }
+    }
+}
